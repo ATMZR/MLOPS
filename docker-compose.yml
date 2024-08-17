@@ -34,11 +34,7 @@ services:
       - "${PGADMIN_PORT}:80"
     depends_on:
       - db
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
-      interval: 30s
-      timeout: 20s
-      retries: 3
+
 
   s3:
     restart: always
@@ -90,11 +86,7 @@ services:
       --host 0.0.0.0
       --serve-artifacts
       --artifacts-destination s3://${MLFLOW_BUCKET_NAME}
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+
 
   lakefs:
     restart: always
@@ -117,11 +109,7 @@ services:
     depends_on:
       - db
       - s3
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/_health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+
 
 
 volumes:
